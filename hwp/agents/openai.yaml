@@ -1,0 +1,4 @@
+interface:
+  display_name: "아래한글 문서"
+  short_description: "HWPX/HWP 문서를 안전하게 만들고 편집합니다"
+  default_prompt: "Use $hwp to create or edit an 아래한글 HWPX/HWP document."

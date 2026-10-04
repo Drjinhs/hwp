@@ -1,0 +1,7 @@
+{
+  "SKILL.md": "4d01ba6416b5f0f474f35e605884480a632ffc0a33297812cf0245873f8a3b86",
+  "agents/openai.yaml": "0a59459addf405c443c0d3cde3d1c185bd6a68f417b705d4b5560f84878b482d",
+  "references/hwpx-format.md": "6b5c0b72a15e296472b5fcab6deec7fdd61b8906064f93ab5f5bf23320e8861c",
+  "references/hwp-conversion.md": "48b7b4d8ed346812d62a005c29bcaa4406f5fa22370a2346a71c3cba7dd22c60",
+  "scripts/validate_hwpx.py": "cbefc189e7f58bfc12531d2d7074cb5aaf11cdd641e20c8f37f8fef9ec3d82ad"
+}
