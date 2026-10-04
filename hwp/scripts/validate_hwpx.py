@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import sys
 import zipfile
-from pathlib import Path, PurePosixPath
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from xml.etree import ElementTree
 
 EXPECTED_MIMETYPE = b"application/hwp+zip"
@@ -42,8 +42,9 @@ def validate(path: Path) -> list[str]:
                 errors.append("no Contents/section*.xml body part found")
             seen: set[str] = set()
             for info in infos:
-                posix = PurePosixPath(info.filename)
-                if posix.is_absolute() or ".." in posix.parts:
+                posix = PurePosixPath(info.filename.replace('\\', '/'))
+                windows = PureWindowsPath(info.filename)
+                if posix.is_absolute() or windows.drive or windows.root or ".." in posix.parts:
                     errors.append(f"unsafe archive path: {info.filename}")
                 if info.filename in seen:
                     errors.append(f"duplicate ZIP entry: {info.filename}")
@@ -55,6 +56,8 @@ def validate(path: Path) -> list[str]:
                         errors.append(f"invalid XML in {info.filename}: {exc}")
     except zipfile.BadZipFile as exc:
         errors.append(f"not a valid ZIP package: {exc}")
+    except (RuntimeError, NotImplementedError) as exc:
+        errors.append(f"unsupported or unreadable ZIP entry: {exc}")
     except OSError as exc:
         errors.append(f"unable to read file: {exc}")
     return errors
